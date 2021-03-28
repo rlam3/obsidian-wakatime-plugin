@@ -1,15 +1,15 @@
 import { App, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
-interface MyPluginSettings {
-	mySetting: string;
+interface WakatimePluginSettings {
+	wakaTimeAPIKey: String;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: 'default'
+const DEFAULT_SETTINGS: WakatimePluginSettings = {
+	wakaTimeAPIKey: ''
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class WakatimePlugin extends Plugin {
+	settings: WakatimePluginSettings;
 
 	async onload() {
 		console.log('loading plugin');
@@ -83,9 +83,9 @@ class SampleModal extends Modal {
 }
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: WakatimePlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: WakatimePlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
@@ -95,17 +95,22 @@ class SampleSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
-		containerEl.createEl('h2', {text: 'Settings for my awesome plugin.'});
+		containerEl.createEl('h2', { text: 'Settings for Wakatime' });
+		containerEl.createEl('a',
+			{
+				text: 'Wakatime',
+				href: 'https://wakatime.com/'
+		})
 
 		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
+			.setName('Wakatime API Key')
+			.setDesc('You may find the key here: https://wakatime.com/settings/api-key')
 			.addText(text => text
 				.setPlaceholder('Enter your secret')
 				.setValue('')
 				.onChange(async (value) => {
-					console.log('Secret: ' + value);
-					this.plugin.settings.mySetting = value;
+					console.log('Wakatime API Key: ' + value);
+					this.plugin.settings.wakaTimeAPIKey = value;
 					await this.plugin.saveSettings();
 				}));
 	}
