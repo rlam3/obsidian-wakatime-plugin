@@ -1,13 +1,16 @@
 {
   "name": "obsidian-sample-plugin",
-  "version": "0.9.7",
-  "description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+  "version": "0.1",
+  "description": "This is a wakatime obsidian plugin",
   "main": "main.js",
   "scripts": {
     "dev": "rollup --config rollup.config.js -w",
     "build": "rollup --config rollup.config.js"
   },
-  "keywords": [],
+  "keywords": [
+    "obsidian",
+    "wakatime"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
