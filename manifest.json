@@ -1,7 +1,7 @@
 {
   "id": "obsidian-sample-plugin",
   "name": "Wakatime Plugin",
-  "version": "0.1",
+  "version": "1.0",
   "minAppVersion": "0.9.12",
   "description": "This is a wakatime plugin for obsidian",
   "author": "Raymond Lam",
