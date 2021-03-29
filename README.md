@@ -12,6 +12,12 @@ Some basic features:
 
 ---
 
+### References:
+
+- https://github.com/obsidianmd/obsidian-api
+- https://github.com/wakatime/vscode-wakatime
+- https://wakatime.com/help/creating-plugin#getting-started
+
 ### Development help
 
 Quick starting guide for new plugin devs:
