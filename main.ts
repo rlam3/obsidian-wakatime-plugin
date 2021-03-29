@@ -16,23 +16,26 @@ export default class WakatimePlugin extends Plugin {
 
 		await this.loadSettings();
 
-		this.addRibbonIcon('dice', 'Sample Plugin', () => {
-			new Notice('This is a notice!');
-		});
+		// This adds an icon on the left sidebar
+		// this.addRibbonIcon('dice', 'Sample Plugin', () => {
+		// 	new Notice('This is a notice!');
+		// });
 
-		this.addStatusBarItem().setText('Status Bar Text');
+		// This adds a label at the statusbar at the bottom of the screen.
+		// this.addStatusBarItem().setText('Status Bar Text');
 
+		// This adds a modal when you do command + p
 		this.addCommand({
-			id: 'open-sample-modal',
-			name: 'Open Sample Modal',
-			// callback: () => {
-			// 	console.log('Simple Callback');
-			// },
+			id: 'open-wakatime-dashboard',
+			name: 'Open Wakatime Dashboard',
+			callback: () => {
+				console.log('Simple Callback');
+			},
 			checkCallback: (checking: boolean) => {
 				let leaf = this.app.workspace.activeLeaf;
 				if (leaf) {
 					if (!checking) {
-						new SampleModal(this.app).open();
+						window.open('http://www.wakatime.com/dashboard')
 					}
 					return true;
 				}
@@ -46,9 +49,10 @@ export default class WakatimePlugin extends Plugin {
 			console.log('codemirror', cm);
 		});
 
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
-		});
+		// This registers click anywhere on the screen of obsidian
+		// this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
+		// 	console.log('click', evt);
+		// });
 
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
@@ -73,7 +77,7 @@ class SampleModal extends Modal {
 
 	onOpen() {
 		let {contentEl} = this;
-		contentEl.setText('Woah!');
+		contentEl.setText('Starting up WakatimePlugin...!');
 	}
 
 	onClose() {
