@@ -4,10 +4,10 @@ This plugin is intended to integrate with wakatime's api to track your vaults ti
 
 Some basic features:
 - [ ] Continously tracks time spent in current vault.
-- [ ] Update API key of wakatime
 - [ ] Send beat to wakatime for all changes to the current vault plugin is installed in.
-- [ ] Provide shortcut link to wakatime dashboard
-- [ ] Adds a plugin setting tab to the settings page.
+- [x] Adds a plugin setting tab to the settings page.
+- [x] Update API key of wakatime
+- [x] Provide shortcut link to wakatime dashboard
 
 
 ---
