@@ -11,3 +11,14 @@ main.js
 *.js.map
 
 data.json
+
+dist
+out/**
+wakatime-cli
+.vscode-test/**
+*.vsix
+npm-debug.log*
+.DS_Store
+wakatime-master
+tags
+*.zip
