@@ -9,14 +9,36 @@ Some basic features:
 - [x] Update API key of wakatime
 - [x] Provide shortcut link to wakatime dashboard
 
+---
+https://wakatime.com/help/creating-plugin#plugin-overview
+
+This is a high-level overview of a WakaTime plugin from the time it's loaded, until the editor is exited.
+
+    Plugin loaded by text editor/IDE, runs plugin's initialization code
+    Initialization code
+        Setup any global variables, like plugin version, editor/IDE version
+        Check for wakatime-cli, download into plugin directory if does not exist
+        Check for python, download and install if does not exist (Windows only)
+        Check for api key, prompt user to enter if does not exist
+        Setup event listeners to detect when current file changes, a file is modified, and a file is saved
+    Current file changed (our file change event listener code is run)
+        go to Send heartbeat function with isWrite false
+    User types in a file (our file modified event listener code is run)
+        go to Send heartbeat function with isWrite false
+    A file is saved (our file save event listener code is run)
+        go to Send heartbeat function with isWrite true
+    Send heartbeat function
+        check lastHeartbeat variable. if isWrite is false, and file has not changed since last heartbeat, and less than 2 minutes since last heartbeat, then return and do nothing
+        run wakatime-cli in background process passing it the current file
+        update lastHeartbeat variable with current file and current time
+
 
 ---
 
 ### References:
-
+- https://wakatime.com/help/creating-plugin#getting-started
 - https://github.com/obsidianmd/obsidian-api
 - https://github.com/wakatime/vscode-wakatime
-- https://wakatime.com/help/creating-plugin#getting-started
 
 ### Development help
 
