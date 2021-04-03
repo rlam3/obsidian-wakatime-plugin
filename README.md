@@ -76,6 +76,14 @@ Quick starting guide for new plugin devs:
 
 - Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
 
+### Commiting code
+
+Use commitizen to commit code. 
+
+```bash
+npx cz OR npm run cz
+```
+
 ### API Documentation
 
 See https://github.com/obsidianmd/obsidian-api

@@ -10,7 +10,7 @@
     "lintfix": "eslint --fix --ext .js,.ts --ignore-path .gitignore .",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint",
-    "commit": "git-cz"
+    "cz": "git-cz"
   },
   "config": {
     "commitizen": {
