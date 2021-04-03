@@ -1,5 +1,6 @@
 import { App, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian'
-import * as os from 'os'
+import os from 'os'
+import path from 'path'
 interface WakatimePluginSettings {
   wakaTimeAPIKey: string
 }
@@ -43,7 +44,7 @@ export default class WakatimePlugin extends Plugin {
       }
     })
 
-    this.addSettingTab(new SampleSettingTab(this.app, this))
+    this.addSettingTab(new WakatimeSettingTab(this.app, this))
 
     this.registerCodeMirror((cm: CodeMirror.Editor) => {
       console.log('codemirror', cm)
@@ -82,11 +83,11 @@ export default class WakatimePlugin extends Plugin {
     this.checkCLI()
   }
 
-  setupGlobalVariables() {
-    
+  setupGlobalVariables(): void {
+    console.log('setup global variables')
   }
 
-  checkCLI() {
+  checkCLI(): void {
     // If CLI is not installed
     if (! this.isCLIInstalled()) {
       this.installCLI()
@@ -123,13 +124,16 @@ export default class WakatimePlugin extends Plugin {
   }
 
 
-  installCLI() {
+  installCLI(): void {
     console.log('install wakatime-cli')
     console.debug('Downloading wakatime-cli')
 
     const url: string = this.s3BucketUrl() + 'wakatime-cli.zip'
     
     console.log('installing wakatime-cli from .... %s', url)
+    const zipFile: string = path.join(__dirname, 'wakatime-cli.zip')
+    console.debug(zipFile)
+
 
   }
 }
@@ -151,7 +155,7 @@ class SampleModal extends Modal {
   }
 }
 
-class SampleSettingTab extends PluginSettingTab {
+class WakatimeSettingTab extends PluginSettingTab {
   plugin: WakatimePlugin;
 
   constructor(app: App, plugin: WakatimePlugin) {
