@@ -1,5 +1,5 @@
 import { App, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-
+import * as os from 'os';
 interface WakatimePluginSettings {
 	wakaTimeAPIKey: string;
 }
@@ -79,14 +79,61 @@ export default class WakatimePlugin extends Plugin {
     // Check for api key, prompt user to enter if does not exist
     // Setup event listeners to detect when current file changes, a file is modified, and a file is saved
 		console.log('testing...')
+		this.checkCLI()
 	}
 
 	setupGlobalVariables() {
 		
 	}
 
+	checkCLI() {
+		// If CLI is not installed
+		if (! this.isCLIInstalled()) {
+			this.installCLI()
+		}
+	}
 
+	isCLIInstalled(): Boolean {
+		console.log('is cli installed?..')
+		return false
+	}
+
+
+	architecture() :string {
+    if (os.arch().indexOf('32') > -1) {
+      return '32';
+    }
+    return '64';
+  };
+	
+
+	s3BucketUrl(): string {
+		const prefix = 'https://wakatime-cli.s3-us-west-2.amazonaws.com/'
+		var p = process.platform
+
+		switch (p) {
+			case 'darwin':
+				return prefix + 'mac-x86-64/'
+			case 'win32':
+				return prefix + 'windows-x86-' + this.architecture() + '/'
+			default:
+				return prefix + 'linux-x86-64/'	
+		}
+			
+	}
+
+
+	installCLI() {
+		console.log('install wakatime-cli')
+		console.debug('Downloading wakatime-cli')
+
+		const url: string = this.s3BucketUrl() + 'wakatime-cli.zip'
+		
+		console.log('installing wakatime-cli from .... %s', url)
+
+	}
 }
+
 
 class SampleModal extends Modal {
 	constructor(app: App) {
