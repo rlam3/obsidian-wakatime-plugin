@@ -1,20 +1,20 @@
 import { App, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
 interface WakatimePluginSettings {
-	wakaTimeAPIKey: String;
+	wakaTimeAPIKey: string;
 }
 
-const DEFAULT_SETTINGS: WakatimePluginSettings = {
+const DEFAULT_WAKATIME_SETTINGS: WakatimePluginSettings = {
 	wakaTimeAPIKey: ''
 }
-
 export default class WakatimePlugin extends Plugin {
 	settings: WakatimePluginSettings;
 
 	async onload() {
-		console.log('loading plugin');
 
 		await this.loadSettings();
+
+		this.initializeWakatime();
 
 		// This adds an icon on the left sidebar
 		// this.addRibbonIcon('dice', 'Sample Plugin', () => {
@@ -62,12 +62,30 @@ export default class WakatimePlugin extends Plugin {
 	}
 
 	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+		console.info('Initializing WakaTime plugin...');
+		this.settings = Object.assign({}, DEFAULT_WAKATIME_SETTINGS, await this.loadData());
 	}
 
 	async saveSettings() {
+		console.info('Saving Wakatime settings...');
 		await this.saveData(this.settings);
 	}
+
+
+	initializeWakatime() {
+		// Setup any global variables, like plugin version, editor/IDE version
+    // Check for wakatime-cli, download into plugin directory if does not exist
+    // Check for python, download and install if does not exist (Windows only)
+    // Check for api key, prompt user to enter if does not exist
+    // Setup event listeners to detect when current file changes, a file is modified, and a file is saved
+		console.log('testing...')
+	}
+
+	setupGlobalVariables() {
+		
+	}
+
+
 }
 
 class SampleModal extends Modal {
@@ -96,7 +114,7 @@ class SampleSettingTab extends PluginSettingTab {
 
 	display(): void {
 		let {containerEl} = this;
-
+		const plugin: WakatimePlugin = (this as any).plugin;
 		containerEl.empty();
 
 		containerEl.createEl('h2', { text: 'Settings for Wakatime' });
@@ -106,16 +124,34 @@ class SampleSettingTab extends PluginSettingTab {
 				href: 'https://wakatime.com/'
 		})
 
+		// new Setting(containerEl)
+    //   .setName("Set Custom Vault Name")
+    //   .setDesc(
+    //     "Change the vault name shown publicly. Leave blank to use your actual vault name."
+    //   )
+    //   .addText((text) =>
+    //     text.setValue(plugin.settings.customVaultName).onChange((value) => {
+    //       plugin.settings.customVaultName = value;
+    //       plugin.saveData(plugin.settings);
+
+    //       plugin.setActivity(
+    //         this.app.vault.getName(),
+    //         plugin.currentFile.basename,
+    //         plugin.currentFile.extension
+    //       );
+    //     })
+    //   );
+
 		new Setting(containerEl)
 			.setName('Wakatime API Key')
 			.setDesc('You may find the key here: https://wakatime.com/settings/api-key')
 			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue('')
+				// .setPlaceholder('Enter your secret')
+				.setValue(plugin.settings.wakaTimeAPIKey)
 				.onChange(async (value) => {
 					console.log('Wakatime API Key: ' + value);
 					this.plugin.settings.wakaTimeAPIKey = value;
-					await this.plugin.saveSettings();
+					this.plugin.saveData(this.plugin.settings);
 				}));
 	}
 }
