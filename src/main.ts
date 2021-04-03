@@ -1,6 +1,14 @@
 import { App, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian'
 import os from 'os'
 import path from 'path'
+import request from 'request'
+
+// import { Dependencies } from 'dependencies';
+// import { COMMAND_DASHBOARD, LogLevel } from './constants';
+// import { Options } from './options';
+// import { Logger } from './logger';
+// import { Libs } from './libs';
+
 interface WakatimePluginSettings {
   wakaTimeAPIKey: string
 }
@@ -133,9 +141,15 @@ export default class WakatimePlugin extends Plugin {
     console.log('installing wakatime-cli from .... %s', url)
     const zipFile: string = path.join(__dirname, 'wakatime-cli.zip')
     console.debug(zipFile)
-
+		
 
   }
+	
+  downloadFile(): void{
+		
+  }
+
+
 }
 
 
